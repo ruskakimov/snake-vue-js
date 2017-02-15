@@ -27,8 +27,17 @@ export default {
         [1, 1]
       ],
       directionVector: [0, 1],
-      cellsPerSecond: 10,
-      directionChanged: false,
+      cellsPerSecond: 10, // snake speed
+      directionChanged: false, // allow only one direction change per cycle
+      /*
+        this is needed to prevent self collision,
+        when user changes direction two or more times per cycle,
+        which possibly results in a direction opposite of current one
+
+        in addition, this makes snake movement more intuitive,
+        as a valid keypress (not of opposite direction) always results
+        in a direction change of the snake
+      */
       treat: [0, 0],
       gameRunning: true
     }
@@ -46,7 +55,7 @@ export default {
       return matrix
     }
   },
-  created: function () {
+  mounted: function () {
     window.addEventListener('keydown', this.handleKeydown)
     this.startGame()
   },
