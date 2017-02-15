@@ -26,7 +26,7 @@ export default {
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    border: 1px solid #ccc;
+    border: 2px solid #333;
   }
   .row {
     display: flex;
