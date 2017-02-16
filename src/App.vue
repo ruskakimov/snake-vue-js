@@ -9,10 +9,12 @@
 <script>
 import Grid from './components/Grid'
 
-const    UP_VECTOR = [-1,  0],
-      RIGHT_VECTOR = [ 0,  1],
-       DOWN_VECTOR = [ 1,  0],
-       LEFT_VECTOR = [ 0, -1]
+const DIR_VECTORS = [
+  [-1,  0],
+  [ 0,  1],
+  [ 1,  0],
+  [ 0, -1]
+]
 
 export default {
   name: 'app',
@@ -26,7 +28,7 @@ export default {
         [1, 0],
         [1, 1]
       ],
-      directionVector: [0, 1],
+      direction: 1, // id of DIR_VECTORS
       cellsPerSecond: 10, // snake speed
       directionChanged: false, // allow only one direction change per cycle
       /*
@@ -62,36 +64,39 @@ export default {
   methods: {
     handleKeydown (e) {
       if (this.directionChanged) return
+      let newDirection = -1
       switch (e.keyCode) {
         case 38: // up arrow
         case 87: // W
-          if (!this.isOppositeDirection(UP_VECTOR)) this.directionVector = UP_VECTOR
+          newDirection = 0
           break
         case 39: // right arrow
         case 68: // D
-          if (!this.isOppositeDirection(RIGHT_VECTOR)) this.directionVector = RIGHT_VECTOR
+          newDirection = 1
           break
         case 40: // down arrow
         case 83: // S
-          if (!this.isOppositeDirection(DOWN_VECTOR)) this.directionVector = DOWN_VECTOR
+          newDirection = 2
           break
         case 37: // left arrow
         case 65: // A
-          if (!this.isOppositeDirection(LEFT_VECTOR)) this.directionVector = LEFT_VECTOR
+          newDirection = 3
           break
       }
-      this.directionChanged = true
+      if (newDirection !== this.direction && !this.isOppositeDirection(newDirection)) {
+        this.direction = newDirection
+        this.directionChanged = true
+      }
     },
     isOppositeDirection (dir) {
-      const dir2 = this.directionVector
-      return (dir[0] + dir2[0]) === 0 &&
-             (dir[1] + dir2[1]) === 0
+      return (this.direction + dir) % 2 === 0
     },
     moveSnake () {
       const head = this.snake[this.snake.length - 1]
+      const directionVector = DIR_VECTORS[this.direction]
       const nextHead = [
-        head[0] + this.directionVector[0],
-        head[1] + this.directionVector[1]
+        head[0] + directionVector[0],
+        head[1] + directionVector[1]
       ]
       if (this.onGrid(nextHead) && !this.isSnake(nextHead)) {
         this.snake.push(nextHead)
@@ -117,16 +122,15 @@ export default {
     placeTreat () {
       const rows = this.gridDimensions[0],
             cols = this.gridDimensions[1]
-      const treat = [-1, -1],
-            lastTreat = this.treat
-      while (!this.onGrid(treat)
-          || this.matrix[treat[0]][treat[1]] === 1
-          || (treat[0] === lastTreat[0] && treat[1] === lastTreat[1]))
+      const newTreat = [-1, -1]
+      while (!this.onGrid(newTreat)
+          || this.isSnake(newTreat)
+          || this.isTreat(newTreat))
       {
-        treat[0] = Math.floor(Math.random() * rows)
-        treat[1] = Math.floor(Math.random() * cols)
+        newTreat[0] = Math.floor(Math.random() * rows)
+        newTreat[1] = Math.floor(Math.random() * cols)
       }
-      this.treat = treat
+      this.treat = newTreat
     },
     startGame () {
       this.gameRunning = true
