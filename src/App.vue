@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="!gameRunning">you lost!</div>
-    <div>score: {{ snake.length }}</div>
+    <div>score: {{ snake.length - 2 }}</div>
     <grid :matrix="matrix"></grid>
   </div>
 </template>
