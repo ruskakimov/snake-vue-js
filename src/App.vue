@@ -63,15 +63,19 @@ export default {
     handleKeydown (e) {
       if (this.directionChanged) return
       switch (e.keyCode) {
+        case 38: // up arrow
         case 87: // W
           if (!this.isOppositeDirection(UP_VECTOR)) this.directionVector = UP_VECTOR
           break
+        case 39: // right arrow
         case 68: // D
           if (!this.isOppositeDirection(RIGHT_VECTOR)) this.directionVector = RIGHT_VECTOR
           break
+        case 40: // down arrow
         case 83: // S
           if (!this.isOppositeDirection(DOWN_VECTOR)) this.directionVector = DOWN_VECTOR
           break
+        case 37: // left arrow
         case 65: // A
           if (!this.isOppositeDirection(LEFT_VECTOR)) this.directionVector = LEFT_VECTOR
           break
