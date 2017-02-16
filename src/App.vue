@@ -21,7 +21,7 @@ export default {
   },
   data () {
     return {
-      gridDimensions: [25, 25],
+      gridDimensions: [24, 24], // odd values may result in a blurry grid (because of transform(-50%, -50%))
       snake: [
         [1, 0],
         [1, 1]
@@ -146,5 +146,6 @@ export default {
 <style>
   body {
     background: #ccc;
+    font-family: monospace;
   }
 </style>
