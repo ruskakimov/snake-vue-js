@@ -22,7 +22,6 @@ export default {
     width: 1em;
     height: 1em;
     float: left;
-    border: 1px solid #ccc;
   }
   .snake {
     background: #333;
