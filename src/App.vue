@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="center">
+      <overlay v-show="overlay.display" :content="overlay.content"></overlay>
       <grid :matrix="matrix"></grid>
     </div>
   </div>
@@ -8,6 +9,7 @@
 
 <script>
 import Grid from './components/Grid'
+import Overlay from './components/Overlay'
 
 const DIR_VECTORS = [
   [-1,  0],
@@ -19,7 +21,7 @@ const DIR_VECTORS = [
 export default {
   name: 'app',
   components: {
-    Grid
+    Grid, Overlay
   },
   data () {
     return {
@@ -41,7 +43,11 @@ export default {
         in a direction change of the snake
       */
       treat: [0, 0],
-      gameRunning: true
+      gameRunning: true,
+      overlay: {
+        content: 'ready?',
+        display: true
+      }
     }
   },
   computed: {
