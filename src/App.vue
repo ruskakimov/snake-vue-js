@@ -84,6 +84,10 @@ export default {
   },
   methods: {
     handleKeydown (e) {
+      if (e.keyCode === 32) { // Space
+        this.restartGame()
+        return
+      }
       if (this.directionChanged) return
       let newDirection = -1
       switch (e.keyCode) {
@@ -153,6 +157,12 @@ export default {
       }
       this.treat = newTreat
     },
+    restartGame () {
+      if (!this.gameOver) return
+      this.snake = [[1, 0], [1, 1]]
+      this.direction = 1
+      this.startGame()
+    },
     startGame () {
       this.gameOver = false
       this.placeTreat()
@@ -160,7 +170,6 @@ export default {
       START_MESSAGES.forEach(msg => {
         setTimeout(() => {
           this.overlay.message = msg.message
-          console.log(this.overlay.message)
         }, timeSum)
         timeSum += msg.duration
       })
@@ -171,6 +180,8 @@ export default {
     },
     stopGame () {
       this.gameOver = true
+      this.overlay.message = `score: ${this.snake.length - 2}`
+      this.overlay.display = true
       clearInterval(this._cycle)
     },
     onGrid (coord) {
