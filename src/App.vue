@@ -158,6 +158,8 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Rubik');
+
   .center {
     position: absolute;
     top: 50%;
@@ -166,6 +168,5 @@ export default {
   }
   body {
     background: #ccc;
-    font-family: monospace;
   }
 </style>
