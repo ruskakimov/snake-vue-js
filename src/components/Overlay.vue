@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="overlay">
-    <span class="content">
-      {{ content }}
+    <span class="message">
+      {{ message }}
     </span>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'overlay',
-  props: ['content']
+  props: ['message']
 }
 </script>
 
@@ -26,7 +26,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  .content {
+  .message {
     font-size: 2em;
     font-family: 'Rubik', sans-serif;
     color: #fff;

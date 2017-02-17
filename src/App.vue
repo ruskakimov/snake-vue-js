@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="center">
-      <overlay v-show="overlay.display" :content="overlay.content"></overlay>
+      <overlay v-show="overlay.display" :message="overlay.message"></overlay>
       <grid :matrix="matrix"></grid>
     </div>
   </div>
@@ -10,6 +10,21 @@
 <script>
 import Grid from './components/Grid'
 import Overlay from './components/Overlay'
+
+const START_MESSAGES = [
+  {
+    message: 'ready',
+    duration: 700
+  },
+  {
+    message: 'set',
+    duration: 700
+  },
+  {
+    message: 'go!',
+    duration: 300
+  }
+]
 
 const DIR_VECTORS = [
   [-1,  0],
@@ -43,9 +58,9 @@ export default {
         in a direction change of the snake
       */
       treat: [0, 0],
-      gameRunning: true,
+      gameOver: false,
       overlay: {
-        content: 'ready?',
+        message: 'ready',
         display: true
       }
     }
@@ -139,12 +154,23 @@ export default {
       this.treat = newTreat
     },
     startGame () {
-      this.gameRunning = true
-      this._cycle = setInterval(this.moveSnake, 1000 / this.cellsPerSecond)
+      this.gameOver = false
       this.placeTreat()
+      let timeSum = 0
+      START_MESSAGES.forEach(msg => {
+        setTimeout(() => {
+          this.overlay.message = msg.message
+          console.log(this.overlay.message)
+        }, timeSum)
+        timeSum += msg.duration
+      })
+      setTimeout(() => {
+        this.overlay.display = false
+        this._cycle = setInterval(this.moveSnake, 1000 / this.cellsPerSecond)
+      }, timeSum)
     },
     stopGame () {
-      this.gameRunning = false
+      this.gameOver = true
       clearInterval(this._cycle)
     },
     onGrid (coord) {
@@ -158,8 +184,6 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Rubik');
-
   .center {
     position: absolute;
     top: 50%;
