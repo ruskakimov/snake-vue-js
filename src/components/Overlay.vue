@@ -28,7 +28,6 @@ export default {
     right: 0;
     bottom: 0;
     background: #333;
-    opacity: 0.8;
     display: flex;
     flex-direction: column;
     justify-content: center;
