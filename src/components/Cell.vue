@@ -27,6 +27,6 @@ export default {
     background: #333;
   }
   .treat {
-    background: #f33;
+    background: #c00;
   }
 </style>
