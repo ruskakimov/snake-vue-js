@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="center">
-      <overlay v-show="overlay.display" :message="overlay.message"></overlay>
+      <overlay v-show="overlay.display" :message="overlay.message" :display-restart="gameOver"></overlay>
       <grid :matrix="matrix"></grid>
     </div>
   </div>
