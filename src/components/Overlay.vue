@@ -42,8 +42,11 @@ export default {
   }
   .restart {
     position: absolute;
+    left: 0;
+    right: 0;
     bottom: 2em;
     display: flex;
+    justify-content: center;
     align-items: center;
     animation: blink 1s infinite;
   }
