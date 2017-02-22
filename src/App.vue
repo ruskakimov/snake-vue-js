@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <leaderboard></leaderboard>
     <div class="center">
       <overlay v-show="overlay.display" :message="overlay.message" :display-restart="gameOver"></overlay>
       <score :value="score"></score>
@@ -12,6 +13,7 @@
 import Grid from './components/Grid'
 import Overlay from './components/Overlay'
 import Score from './components/Score'
+import Leaderboard from './components/leaderboard'
 
 const START_MESSAGES = [
   {
@@ -38,7 +40,7 @@ const DIR_VECTORS = [
 export default {
   name: 'app',
   components: {
-    Grid, Overlay, Score
+    Grid, Overlay, Score, Leaderboard
   },
   data () {
     return {
@@ -51,6 +53,7 @@ export default {
       directionQueue: [],
       cellsPerSecond: 10, // snake speed
       treat: [0, 0],
+      gameRunning: false,
       gameOver: false,
       overlay: {
         message: 'ready',
@@ -84,6 +87,7 @@ export default {
         this.restartGame()
         return
       }
+      if (!this.gameRunning) return
       let newDirection = -1
       switch (e.keyCode) {
         case 38: // up arrow
@@ -180,11 +184,13 @@ export default {
         timeSum += msg.duration
       })
       setTimeout(() => {
+        this.gameRunning = true
         this.overlay.display = false
         this._cycle = setInterval(this.moveSnake, 1000 / this.cellsPerSecond)
       }, timeSum)
     },
     stopGame () {
+      this.gameRunning = false
       this.gameOver = true
       this.overlay.message = `score: ${this.score}`
       this.overlay.display = true
