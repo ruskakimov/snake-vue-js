@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    {{ score }}
     <div class="center">
       <overlay v-show="overlay.display" :message="overlay.message" :display-restart="gameOver"></overlay>
       <grid :matrix="matrix"></grid>
@@ -76,6 +77,9 @@ export default {
       const [ treatRow, treatCol ] = this.treat
       matrix[treatRow][treatCol] = 2
       return matrix
+    },
+    score: function () {
+      return this.snake.length - 2
     }
   },
   mounted: function () {
@@ -183,7 +187,7 @@ export default {
     },
     stopGame () {
       this.gameOver = true
-      this.overlay.message = `score: ${this.snake.length - 2}`
+      this.overlay.message = `score: ${this.score}`
       this.overlay.display = true
       clearInterval(this._cycle)
     },
