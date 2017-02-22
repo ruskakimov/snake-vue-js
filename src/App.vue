@@ -48,17 +48,8 @@ export default {
         [1, 1]
       ],
       direction: 1, // id of DIR_VECTORS
+      directionQueue: [],
       cellsPerSecond: 10, // snake speed
-      directionChanged: false, // allow only one direction change per cycle
-      /*
-        this is needed to prevent self collision,
-        when user changes direction two or more times per cycle,
-        which possibly results in a direction opposite of current one
-
-        in addition, this makes snake movement more intuitive,
-        as a valid keypress (not of opposite direction) always results
-        in a direction change of the snake
-      */
       treat: [0, 0],
       gameOver: false,
       overlay: {
@@ -93,7 +84,6 @@ export default {
         this.restartGame()
         return
       }
-      if (this.directionChanged) return
       let newDirection = -1
       switch (e.keyCode) {
         case 38: // up arrow
@@ -113,18 +103,23 @@ export default {
           newDirection = 3
           break
       }
+      const lastDirection = (this.directionQueue.length)
+                            ? this.directionQueue.slice(-1)[0]
+                            : this.direction
       if (newDirection !== -1
-        && newDirection !== this.direction
-        && !this.isOppositeDirection(newDirection))
+        && newDirection !== lastDirection
+        && !this.isOppositeDirection(newDirection, lastDirection))
       {
-        this.direction = newDirection
-        this.directionChanged = true
+        this.directionQueue.push(newDirection)
       }
     },
-    isOppositeDirection (dir) {
-      return (this.direction + dir) % 2 === 0
+    isOppositeDirection (dir1, dir2) {
+      return (dir1 + dir2) % 2 === 0
     },
     moveSnake () {
+      if (this.directionQueue.length) {
+        this.direction = this.directionQueue.shift()
+      }
       const head = this.snake[this.snake.length - 1]
       const directionVector = DIR_VECTORS[this.direction]
       const nextHead = [
@@ -143,7 +138,6 @@ export default {
       else {
         this.stopGame()
       }
-      this.directionChanged = false
     },
     isSnake (coord) {
       return this.matrix[coord[0]][coord[1]] === 1
@@ -167,9 +161,13 @@ export default {
     },
     restartGame () {
       if (!this.gameOver) return
+      this.resetGame()
+      this.startGame()
+    },
+    resetGame () {
       this.snake = [[1, 0], [1, 1]]
       this.direction = 1
-      this.startGame()
+      this.directionQueue = []
     },
     startGame () {
       this.gameOver = false
