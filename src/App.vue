@@ -108,7 +108,10 @@ export default {
           newDirection = 3
           break
       }
-      if (newDirection !== this.direction && !this.isOppositeDirection(newDirection)) {
+      if (newDirection !== -1
+        && newDirection !== this.direction
+        && !this.isOppositeDirection(newDirection))
+      {
         this.direction = newDirection
         this.directionChanged = true
       }
