@@ -89,7 +89,7 @@ export default {
         return
       }
       if (this.directionChanged) return
-      let newDirection
+      let newDirection = -1
       switch (e.keyCode) {
         case 38: // up arrow
         case 87: // W
@@ -108,7 +108,7 @@ export default {
           newDirection = 3
           break
       }
-      if (newDirection
+      if (newDirection !== -1
         && newDirection !== this.direction
         && !this.isOppositeDirection(newDirection))
       {
