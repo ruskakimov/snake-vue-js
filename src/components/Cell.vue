@@ -25,8 +25,10 @@ export default {
   }
   .snake {
     background: #333;
+    z-index: 2;
   }
   .treat {
     background: #c00;
+    z-index: 2;
   }
 </style>

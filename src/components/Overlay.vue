@@ -35,6 +35,7 @@ export default {
     font-family: 'Rubik', sans-serif;
     color: #fff;
     -webkit-font-smoothing: antialiased;
+    z-index: 3;
   }
   .message {
     font-size: 4em;

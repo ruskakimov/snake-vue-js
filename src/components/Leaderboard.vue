@@ -11,7 +11,7 @@
 export default {
   name: 'leaderboard',
   created: function () {
-
+    
   }
 }
 </script>

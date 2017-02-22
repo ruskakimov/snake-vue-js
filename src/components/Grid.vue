@@ -23,6 +23,7 @@ export default {
     display: flex;
     flex-direction: column;
     border: 2px solid #333;
+    z-index: 0;
   }
   .row {
     display: flex;
