@@ -3,8 +3,7 @@
     <leaderboard></leaderboard>
     <div class="center">
       <overlay v-show="overlay.display" :message="overlay.message" :display-restart="gameOver"></overlay>
-      <score :value="score"></score>
-      <grid :matrix="matrix"></grid>
+      <grid :matrix="matrix" :score="score"></grid>
     </div>
   </div>
 </template>
@@ -12,7 +11,6 @@
 <script>
 import Grid from './components/Grid'
 import Overlay from './components/Overlay'
-import Score from './components/Score'
 import Leaderboard from './components/leaderboard'
 
 const START_MESSAGES = [
@@ -40,7 +38,7 @@ const DIR_VECTORS = [
 export default {
   name: 'app',
   components: {
-    Grid, Overlay, Score, Leaderboard
+    Grid, Overlay, Leaderboard
   },
   data () {
     return {
