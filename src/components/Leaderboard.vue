@@ -1,6 +1,6 @@
 <template lang="html">
   <ol>
-    <li v-for="leader in leaderboard">
+    <li v-for="leader in sortedLeaders">
       {{leader.name}}
       {{leader.score}}
     </li>
@@ -8,10 +8,22 @@
 </template>
 
 <script>
+import { scoreboard } from './../db'
+
 export default {
   name: 'leaderboard',
-  created: function () {
-    
+  data () {
+   return {
+     leaders: []
+   }
+  },
+  computed: {
+    sortedLeaders () {
+      return this.leaderBoard.reverse()
+    }
+  },
+  firebase: {
+    leaderBoard: scoreboard.orderByChild('score').limitToLast(2)
   }
 }
 </script>
