@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <leaderboard></leaderboard>
     <div class="center">
-      <overlay v-show="overlay.display" :message="overlay.message" :display-restart="gameOver"></overlay>
+      <overlay v-show="!gameRunning">
+        <component :is="overlay.currentView"></component>
+      </overlay>
       <grid :matrix="matrix" :score="score"></grid>
     </div>
   </div>
@@ -35,6 +36,8 @@ const DIR_VECTORS = [
   [ 0, -1]
 ]
 
+const SNAKE_SPEED = 10 // cells per second
+
 export default {
   name: 'app',
   components: {
@@ -49,13 +52,10 @@ export default {
       ],
       direction: 1, // id of DIR_VECTORS
       directionQueue: [],
-      cellsPerSecond: 10, // snake speed
       treat: [0, 0],
       gameRunning: false,
-      gameOver: false,
       overlay: {
-        message: 'ready',
-        display: true
+        currentView: 'leaderboard'
       }
     }
   },
@@ -162,7 +162,7 @@ export default {
       this.treat = newTreat
     },
     restartGame () {
-      if (!this.gameOver) return
+      if (this.gameRunning) return
       this.resetGame()
       this.startGame()
     },
@@ -172,26 +172,21 @@ export default {
       this.directionQueue = []
     },
     startGame () {
-      this.gameOver = false
       this.placeTreat()
       let timeSum = 0
       START_MESSAGES.forEach(msg => {
         setTimeout(() => {
-          this.overlay.message = msg.message
+          // show msg in overlay
         }, timeSum)
         timeSum += msg.duration
       })
       setTimeout(() => {
         this.gameRunning = true
-        this.overlay.display = false
-        this._cycle = setInterval(this.moveSnake, 1000 / this.cellsPerSecond)
+        this._cycle = setInterval(this.moveSnake, 1000 / SNAKE_SPEED)
       }, timeSum)
     },
     stopGame () {
       this.gameRunning = false
-      this.gameOver = true
-      this.overlay.message = `score: ${this.score}`
-      this.overlay.display = true
       clearInterval(this._cycle)
     },
     onGrid (coord) {
