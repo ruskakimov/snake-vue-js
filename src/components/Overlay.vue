@@ -1,22 +1,12 @@
 <template lang="html">
   <div class="overlay">
-    <span class="message">
-      {{ message }}
-    </span>
-    <div v-if="displayRestart" class="restart">
-      <span>press</span>
-      <button class="restart-btn">
-        <kbd>Space</kbd>
-      </button>
-      <span>to restart</span>
-    </div>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'overlay',
-  props: ['message', 'displayRestart']
+  name: 'overlay'
 }
 </script>
 
@@ -36,45 +26,5 @@ export default {
     color: #fff;
     -webkit-font-smoothing: antialiased;
     z-index: 3;
-  }
-  .message {
-    font-size: 4em;
-    margin-bottom: 0.5em;
-  }
-  .restart {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: blink 1s infinite;
-  }
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  .restart-btn {
-    margin: 0 0.5em;
-    position: relative;
-    font-size: 1em;
-    border: 0;
-    width: 5em;
-    height: 1.8em;
-    border-radius: 0.2em;
-    background: #eee;
-  }
-  .restart-btn kbd {
-    position: absolute;
-    left: 0.5em;
-    bottom: 0.4em;
   }
 </style>
