@@ -48,6 +48,7 @@ export default {
     margin: .2em 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .name {
     text-align: right;
