@@ -1,7 +1,12 @@
 <template lang="html">
   <div class="screen">
     <div class="name">
-      {{ value }}
+      <input
+        type="text"
+        ref="input"
+        :value="value"
+        @input="updateValue($event.target.value)"
+      >
     </div>
     <blink actionName="submit score">
       <space-key slot="key"></space-key>
@@ -24,23 +29,10 @@ export default {
   methods: {
     updateValue (value) {
       this.$emit('input', value)
-    },
-    handleKeydown (e) {
-      if (e.keyCode >= 65 && e.keyCode <= 90) {
-        this.updateValue(this.value + e.key)
-      }
-      else if (e.keyCode === 8) {
-        this.updateValue(this.value.slice(0, -1))
-      }
     }
   },
-  mounted: function () {
-    console.log('mounted')
-    window.addEventListener('keydown', this.handleKeydown)
-  },
-  beforeDestroy: function () {
-    console.log('unmounted')
-    window.removeEventListener('keydown', this.handleKeydown)
+  activated: function () {
+    this.$refs.input.focus()
   }
 }
 </script>
