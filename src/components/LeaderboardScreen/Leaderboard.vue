@@ -17,7 +17,7 @@ export default {
   name: 'leaderboard',
   computed: {
     sortedLeaders () {
-      return this.leaderBoard.reverse()
+      return this.leaderBoard.sort((a, b) => b.score - a.score)
     }
   },
   firebase: {
