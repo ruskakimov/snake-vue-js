@@ -64,7 +64,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3em;
+    margin-top: 2em;
   }
   p {
     margin: 0;
