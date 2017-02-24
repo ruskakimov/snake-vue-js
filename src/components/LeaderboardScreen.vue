@@ -8,10 +8,9 @@
 </template>
 
 <script>
-import { scoreboard } from './../db'
-import Leaderboard from './Leaderboard'
+import Leaderboard from './LeaderboardScreen/Leaderboard'
 import Blink from './Blink'
-import SpaceKey from './SpaceKey'
+import SpaceKey from './LeaderboardScreen/SpaceKey'
 
 export default {
   name: 'leaderboard-screen',

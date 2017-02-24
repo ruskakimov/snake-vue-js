@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { scoreboard } from './../db'
+import { scoreboard } from './../../db'
 
 export default {
   name: 'leaderboard',
