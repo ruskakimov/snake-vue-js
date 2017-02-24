@@ -81,35 +81,34 @@ export default {
   },
   methods: {
     handleKeydown (e) {
-      if (e.keyCode === 32) { // Space
-        this.restartGame()
-        return
-      }
-      if (!this.gameRunning) return
-      let newDirection = -1
       switch (e.keyCode) {
+        case 32: // space
+          this.restartGame()
+          break
         case 38: // up arrow
         case 87: // W
-          newDirection = 0
+          this.addDirection(0)
           break
         case 39: // right arrow
         case 68: // D
-          newDirection = 1
+          this.addDirection(1)
           break
         case 40: // down arrow
         case 83: // S
-          newDirection = 2
+          this.addDirection(2)
           break
         case 37: // left arrow
         case 65: // A
-          newDirection = 3
+          this.addDirection(3)
           break
       }
+    },
+    addDirection (newDirection) {
+      if (!this.gameRunning) return
       const lastDirection = (this.directionQueue.length)
                             ? this.directionQueue.slice(-1)[0]
                             : this.direction
-      if (newDirection !== -1
-        && newDirection !== lastDirection
+      if (newDirection !== lastDirection
         && !this.isOppositeDirection(newDirection, lastDirection))
       {
         this.directionQueue.push(newDirection)
