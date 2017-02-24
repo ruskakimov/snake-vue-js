@@ -38,7 +38,7 @@ export default {
   },
   data () {
     return {
-      userName: 'kek',
+      userName: '',
       gridDimensions: [24, 24], // odd values may result in a blurry grid (because of transform(-50%, -50%))
       snake: [
         [1, 0],
