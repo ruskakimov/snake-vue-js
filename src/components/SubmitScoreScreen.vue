@@ -9,14 +9,14 @@
       >
     </div>
     <blink actionName="submit score">
-      <space-key slot="key"></space-key>
+      <enter-key slot="key"></enter-key>
     </blink>
   </div>
 </template>
 
 <script>
 import Blink from './Blink'
-import SpaceKey from './LeaderboardScreen/SpaceKey'
+import EnterKey from './SubmitScoreScreen/EnterKey'
 
 export default {
   name: 'submit-score-screen',
@@ -24,7 +24,7 @@ export default {
     value: String
   },
   components: {
-    Blink, SpaceKey
+    Blink, EnterKey
   },
   methods: {
     updateValue (value) {
