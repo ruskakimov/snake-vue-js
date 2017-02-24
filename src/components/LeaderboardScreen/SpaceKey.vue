@@ -14,7 +14,7 @@ export default {
   .space {
     position: relative;
     font-size: 1em;
-    width: 5em;
+    width: 8em;
     height: 1.8em;
     border-radius: 0.2em;
     background: #eee;
