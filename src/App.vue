@@ -16,6 +16,7 @@ import Grid from './components/Grid'
 import Overlay from './components/Overlay'
 import LeaderboardScreen from './components/LeaderboardScreen'
 import SubmitScoreScreen from './components/SubmitScoreScreen'
+import { scoreboard } from './db'
 
 const DIR_VECTORS = [
   [-1,  0],
@@ -164,6 +165,10 @@ export default {
     },
     submitScore () {
       if (this.overlay.currentView !== 'submit-score-screen') return
+      scoreboard.push({
+        name: this.userName,
+        score: this.score
+      })
       this.overlay.currentView = 'leaderboard-screen'
     },
     restartGame () {
