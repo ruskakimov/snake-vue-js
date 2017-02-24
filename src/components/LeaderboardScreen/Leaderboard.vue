@@ -40,11 +40,11 @@ export default {
   .leader {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
   }
   .name,
   .score {
     font-size: 1.2em;
-    width: 50%;
     margin: .2em 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -53,8 +53,10 @@ export default {
   .name {
     text-align: right;
     padding-right: 1em;
+    flex-grow: 1;
   }
   .score {
+    width: 5em;
     font-weight: bold;
     text-align: left;
     padding-left: 1em;
