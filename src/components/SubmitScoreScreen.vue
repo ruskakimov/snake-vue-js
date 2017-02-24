@@ -23,7 +23,7 @@
 import Blink from './Blink'
 import EnterKey from './SubmitScoreScreen/EnterKey'
 
-const INPUT_LIMIT = 13
+const INPUT_LIMIT = 25
 
 export default {
   name: 'submit-score-screen',
