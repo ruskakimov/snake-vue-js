@@ -169,6 +169,7 @@ export default {
     },
     submitScore () {
       if (this.overlay.currentView !== 'submit-score-screen') return
+      if (this.userName === '') return
       scoreboard.push({
         name: this.userName,
         score: this.score
