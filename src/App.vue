@@ -2,7 +2,9 @@
   <div id="app">
     <div class="center">
       <overlay v-show="!gameRunning">
-        <component :is="overlay.currentView"></component>
+        <keep-alive>
+          <component :is="overlay.currentView" v-model="userName"></component>
+        </keep-alive>
       </overlay>
       <grid :matrix="matrix" :score="score"></grid>
     </div>
@@ -13,6 +15,7 @@
 import Grid from './components/Grid'
 import Overlay from './components/Overlay'
 import LeaderboardScreen from './components/LeaderboardScreen'
+import SubmitScoreScreen from './components/SubmitScoreScreen'
 
 const DIR_VECTORS = [
   [-1,  0],
@@ -26,10 +29,11 @@ const SNAKE_SPEED = 10 // cells per second
 export default {
   name: 'app',
   components: {
-    Grid, Overlay, LeaderboardScreen
+    Grid, Overlay, LeaderboardScreen, SubmitScoreScreen
   },
   data () {
     return {
+      userName: 'kek',
       gridDimensions: [24, 24], // odd values may result in a blurry grid (because of transform(-50%, -50%))
       snake: [
         [1, 0],
@@ -180,7 +184,7 @@ export default {
     gameOver () {
       this.gameRunning = false
       clearInterval(this._cycle)
-      this.overlay.currentView = 'leaderboard-screen'
+      this.overlay.currentView = 'submit-score-screen'
     },
     onGrid (coord) {
       const r = coord[0],
