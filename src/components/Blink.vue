@@ -1,9 +1,11 @@
 <template lang="html">
   <div class="blink">
     <span>press</span>
-    <slot name="key">
-      (key visual here)
-    </slot>
+    <div class="key">
+      <slot name="key">
+        (key visual here)
+      </slot>
+    </div>
     <span>to {{ actionName }}</span>
   </div>
 </template>
@@ -19,6 +21,9 @@ export default {
 
 <style lang="css" scoped>
   .blink {
+    position: absolute;
+    bottom: 2em;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,5 +39,8 @@ export default {
     100% {
       opacity: 1;
     }
+  }
+  .key {
+    margin: 0 0.5em;
   }
 </style>

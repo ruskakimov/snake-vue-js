@@ -12,7 +12,6 @@ export default {
 
 <style lang="css" scoped>
   .space {
-    margin: 0 0.5em;
     position: relative;
     font-size: 1em;
     width: 5em;
@@ -21,6 +20,7 @@ export default {
     background: #eee;
   }
   .space kbd {
+    color: #333;
     position: absolute;
     left: 0.5em;
     bottom: 0.4em;
