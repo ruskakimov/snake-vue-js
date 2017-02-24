@@ -1,10 +1,13 @@
 <template lang="html">
-  <ol>
-    <li v-for="leader in sortedLeaders">
-      {{leader.name}}
-      {{leader.score}}
-    </li>
-  </ol>
+  <div class="container">
+    <h1>Leaders:</h1>
+    <div class="board">
+      <div class="leader" v-for="leader in sortedLeaders">
+        <div class="name">{{ leader.name }}</div>
+        <div class="score">{{ leader.score }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -12,11 +15,6 @@ import { scoreboard } from './../db'
 
 export default {
   name: 'leaderboard',
-  data () {
-   return {
-     leaders: []
-   }
-  },
   computed: {
     sortedLeaders () {
       return this.leaderBoard.reverse()
@@ -28,5 +26,37 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .board {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .leader {
+    display: flex;
+    flex-direction: row;
+  }
+  .name,
+  .score {
+    font-size: 1.2em;
+    width: 50%;
+    margin: .2em 0;
+  }
+  .name {
+    text-align: right;
+    padding-right: 1em;
+  }
+  .score {
+    font-weight: bold;
+    text-align: left;
+    padding-left: 1em;
+  }
+  h1 {
+    margin: 1em 0 .5em;
+  }
 </style>
