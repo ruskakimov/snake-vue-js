@@ -66,29 +66,39 @@ export default {
   },
   methods: {
     handleKeydown (e) {
-      switch (e.keyCode) {
-        case 13: // enter
-          this.submitScore()
-          break
-        case 32: // space
-          this.restartGame()
-          break
-        case 38: // up arrow
-        case 87: // W
-          this.addDirection(0)
-          break
-        case 39: // right arrow
-        case 68: // D
-          this.addDirection(1)
-          break
-        case 40: // down arrow
-        case 83: // S
-          this.addDirection(2)
-          break
-        case 37: // left arrow
-        case 65: // A
-          this.addDirection(3)
-          break
+      if (this.gameRunning) {
+        switch (e.keyCode) {
+          case 38: // up arrow
+          case 87: // W
+            this.addDirection(0)
+            break
+          case 39: // right arrow
+          case 68: // D
+            this.addDirection(1)
+            break
+          case 40: // down arrow
+          case 83: // S
+            this.addDirection(2)
+            break
+          case 37: // left arrow
+          case 65: // A
+            this.addDirection(3)
+            break
+        }
+      }
+      else if (this.overlay.currentView === 'submit-score-screen') {
+        switch (e.keyCode) {
+          case 13: // enter
+            this.submitScore()
+            break
+        }
+      }
+      else if (this.overlay.currentView === 'leaderboard-screen') {
+        switch (e.keyCode) {
+          case 32: // space
+            this.restartGame()
+            break
+        }
       }
     },
     addDirection (newDirection) {
@@ -149,7 +159,7 @@ export default {
       this.treat = newTreat
     },
     submitScore () {
-      if (this.overlay.currentView !== 'submit-score') return
+      if (this.overlay.currentView !== 'submit-score-screen') return
       this.overlay.currentView = 'leaderboard-screen'
     },
     restartGame () {
