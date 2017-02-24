@@ -168,7 +168,6 @@ export default {
       this.treat = newTreat
     },
     submitScore () {
-      if (this.overlay.currentView !== 'submit-score-screen') return
       if (this.userName === '') return
       scoreboard.push({
         name: this.userName,
@@ -177,7 +176,6 @@ export default {
       this.overlay.currentView = 'leaderboard-screen'
     },
     restartGame () {
-      if (this.gameRunning || this.overlay.currentView !== 'leaderboard-screen') return
       this.resetGame()
       this.startGame()
     },
