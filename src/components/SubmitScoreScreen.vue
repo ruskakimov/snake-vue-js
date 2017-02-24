@@ -39,8 +39,8 @@ export default {
       const newValue = (value.length > INPUT_LIMIT)
                        ? value.slice(0, INPUT_LIMIT)
                        : value
-      console.log('this.value:', this.value)
       this.$refs.input.value = newValue
+      localStorage['userName'] = newValue
       this.$emit('input', newValue)
     }
   },
