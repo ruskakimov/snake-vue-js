@@ -23,6 +23,8 @@
 import Blink from './Blink'
 import EnterKey from './SubmitScoreScreen/EnterKey'
 
+const INPUT_LIMIT = 13
+
 export default {
   name: 'submit-score-screen',
   props: {
@@ -34,7 +36,12 @@ export default {
   },
   methods: {
     updateValue (value) {
-      this.$emit('input', value)
+      const newValue = (value.length > INPUT_LIMIT)
+                       ? value.slice(0, INPUT_LIMIT)
+                       : value
+      console.log('this.value:', this.value)
+      this.$refs.input.value = newValue
+      this.$emit('input', newValue)
     }
   },
   activated: function () {
@@ -67,6 +74,7 @@ export default {
   }
   input {
     background: transparent;
+    width: 100%;
     border: 0;
     color: #eee;
     font-size: 3em;
