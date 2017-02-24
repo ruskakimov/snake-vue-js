@@ -12,22 +12,7 @@
 <script>
 import Grid from './components/Grid'
 import Overlay from './components/Overlay'
-import Leaderboard from './components/leaderboard'
-
-const START_MESSAGES = [
-  {
-    message: 'ready',
-    duration: 700
-  },
-  {
-    message: 'set',
-    duration: 700
-  },
-  {
-    message: 'go!',
-    duration: 300
-  }
-]
+import LeaderboardScreen from './components/LeaderboardScreen'
 
 const DIR_VECTORS = [
   [-1,  0],
@@ -41,7 +26,7 @@ const SNAKE_SPEED = 10 // cells per second
 export default {
   name: 'app',
   components: {
-    Grid, Overlay, Leaderboard
+    Grid, Overlay, LeaderboardScreen
   },
   data () {
     return {
@@ -55,7 +40,7 @@ export default {
       treat: [0, 0],
       gameRunning: false,
       overlay: {
-        currentView: 'leaderboard'
+        currentView: 'leaderboard-screen'
       }
     }
   },
@@ -82,6 +67,9 @@ export default {
   methods: {
     handleKeydown (e) {
       switch (e.keyCode) {
+        case 13: // enter
+          this.submitScore()
+          break
         case 32: // space
           this.restartGame()
           break
@@ -137,7 +125,7 @@ export default {
         }
       }
       else {
-        this.stopGame()
+        this.gameOver()
       }
     },
     isSnake (coord) {
@@ -160,8 +148,12 @@ export default {
       }
       this.treat = newTreat
     },
+    submitScore () {
+      if (this.overlay.currentView !== 'submit-score') return
+      this.overlay.currentView = 'leaderboard-screen'
+    },
     restartGame () {
-      if (this.gameRunning) return
+      if (this.gameRunning || this.overlay.currentView !== 'leaderboard-screen') return
       this.resetGame()
       this.startGame()
     },
@@ -172,21 +164,13 @@ export default {
     },
     startGame () {
       this.placeTreat()
-      let timeSum = 0
-      START_MESSAGES.forEach(msg => {
-        setTimeout(() => {
-          // show msg in overlay
-        }, timeSum)
-        timeSum += msg.duration
-      })
-      setTimeout(() => {
-        this.gameRunning = true
-        this._cycle = setInterval(this.moveSnake, 1000 / SNAKE_SPEED)
-      }, timeSum)
+      this.gameRunning = true
+      this._cycle = setInterval(this.moveSnake, 1000 / SNAKE_SPEED)
     },
-    stopGame () {
+    gameOver () {
       this.gameRunning = false
       clearInterval(this._cycle)
+      this.overlay.currentView = 'leaderboard-screen'
     },
     onGrid (coord) {
       const r = coord[0],
