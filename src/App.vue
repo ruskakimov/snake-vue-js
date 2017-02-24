@@ -3,7 +3,11 @@
     <div class="center">
       <overlay v-show="!gameRunning">
         <keep-alive>
-          <component :is="overlay.currentView" v-model="userName"></component>
+          <component
+            :is="overlay.currentView"
+            :score="score"
+            v-model="userName"
+          ></component>
         </keep-alive>
       </overlay>
       <grid :matrix="matrix" :score="score"></grid>
