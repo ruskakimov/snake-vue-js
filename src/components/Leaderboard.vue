@@ -21,7 +21,7 @@ export default {
     }
   },
   firebase: {
-    leaderBoard: scoreboard.orderByChild('score').limitToLast(2)
+    leaderBoard: scoreboard.orderByChild('score').limitToLast(7)
   }
 }
 </script>
