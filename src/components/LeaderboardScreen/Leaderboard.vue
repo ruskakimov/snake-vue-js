@@ -46,6 +46,8 @@ export default {
     font-size: 1.2em;
     width: 50%;
     margin: .2em 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .name {
     text-align: right;
