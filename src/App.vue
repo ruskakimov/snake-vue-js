@@ -18,8 +18,9 @@
 <script>
 import Grid from './components/Grid'
 import Overlay from './components/Overlay'
-import LeaderboardScreen from './components/LeaderboardScreen'
+import StartScreen from './components/StartScreen'
 import SubmitScoreScreen from './components/SubmitScoreScreen'
+import LeaderboardScreen from './components/LeaderboardScreen'
 import { scoreboard } from './db'
 
 const DIR_VECTORS = [
@@ -34,7 +35,7 @@ const SNAKE_SPEED = 10 // cells per second
 export default {
   name: 'app',
   components: {
-    Grid, Overlay, LeaderboardScreen, SubmitScoreScreen
+    Grid, Overlay, LeaderboardScreen, SubmitScoreScreen, StartScreen
   },
   data () {
     return {
@@ -71,7 +72,7 @@ export default {
   },
   mounted: function () {
     window.addEventListener('keydown', this.handleKeydown)
-    this.startGame()
+    this.overlay.currentView = 'start-screen'
   },
   methods: {
     handleKeydown (e) {
@@ -106,6 +107,13 @@ export default {
         switch (e.keyCode) {
           case 32: // space
             this.restartGame()
+            break
+        }
+      }
+      else if (this.overlay.currentView === 'start-screen') {
+        switch (e.keyCode) {
+          case 13: // enter
+            this.startGame()
             break
         }
       }
